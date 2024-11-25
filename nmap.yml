@@ -1,0 +1,33 @@
+
+    - name: Creates directory
+      ansible.builtin.file:
+        path: /usr/src/nmap
+        state: directory
+        owner: ansible-c
+        group: ans-admin
+        mode: 0700
+        recurse: yes
+      become_user: root
+
+
+    - name: Change the directory
+      command: cd /usr/src/nmap 
+
+
+    - name: Copy Parse file
+      template:
+        src: "{{ansible_roles_path}}/files/nmap/parse_nmap_result.php"
+        dest: "/usr/src/nmap/parse_nmap_result.php"
+        owner: ansible-c
+        group: ans-admin
+        mode: 0700
+      become_user: root
+
+    - name: Copy Nmap run file
+      template:
+        src: "{{ansible_roles_path}}/files/nmap/run-nmap.sh"
+        dest: "/usr/src/nmap/run-nmap.sh"
+        owner: ansible-c
+        group: ans-admin
+        mode: 0700
+      become_user: root
